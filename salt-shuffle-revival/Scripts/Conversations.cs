@@ -54,7 +54,7 @@ namespace XRL.World.Conversations.Parts {
 		}
 
 		public override bool HandleEvent(IsElementVisibleEvent e) {
-			return CanPlay() != Reason.NoFactions;
+    			return CanPlay() == Reason.CanPlay && !SociallyRepugnant();
 		}
 
 		public override bool HandleEvent(PrepareTextEvent e) {
