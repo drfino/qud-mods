@@ -40,23 +40,28 @@ namespace Plaidman.SaltShuffleRevival {
 		}
 
 		public static void GenerateDeckFor(GameObject creature) {
-			if (creature.HasPart<SSR_CardPouch>()) {
-				return;
-			}
-
-			var factions = FactionTracker
-				.GetCreatureFactions(creature)
-				.Where(faction => FactionTracker.FactionHasMembers(faction))
-				.ToList();
-			if (factions.Count == 0) return;
-
-			var part = creature.AddPart<SSR_CardPouch>();
-			part.Cards = new(12);
-			for(int i = 0; i < 12; i++) {
-				string faction = factions.GetRandomElementCosmetic();
-				var card = SSR_Card.CreateCard(faction);
-				part.Cards.Add(card);
-			}
+		    // Only give cards to about 10% of NPCs
+		    if (Stat.Rnd2.Next(100) >= 10) {
+			return;
+		    }
+		
+		    if (creature.HasPart<SSR_CardPouch>()) {
+			return;
+		    }
+		
+		    var factions = FactionTracker
+			.GetCreatureFactions(creature)
+			.Where(faction => FactionTracker.FactionHasMembers(faction))
+			.ToList();
+		    if (factions.Count == 0) return;
+		
+		    var part = creature.AddPart<SSR_CardPouch>();
+		    part.Cards = new(12);
+		    for (int i = 0; i < 12; i++) {
+			string faction = factions.GetRandomElementCosmetic();
+			var card = SSR_Card.CreateCard(faction);
+			part.Cards.Add(card);
+		    }
 		}
 	}
 }
