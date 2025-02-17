@@ -3,6 +3,7 @@ using System.Linq;
 using XRL;
 using XRL.World;
 using XRL.World.Parts;
+using XRL.Rules;
 
 namespace Plaidman.SaltShuffleRevival {
 	[HasModSensitiveStaticCache]
@@ -41,7 +42,7 @@ namespace Plaidman.SaltShuffleRevival {
 
 		public static void GenerateDeckFor(GameObject creature) {
 		    // Only give cards to about 10% of NPCs
-		    if (Stat.Rnd2.Next(100) >= 10) {
+           		if (Rand.Next(100) >= 10) {
 			return;
 		    }
 		
